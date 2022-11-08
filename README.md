@@ -11,9 +11,9 @@ The bilingual datasets [IWSLT'14 German to English dataset](http://workshop2014.
 
 ```
 cd ./fairseq
-user_dir=./auxiliary-positive
+user_dir=./regularization
 data_bin=./data-bin/wmt14_en_de_bpe32k
-model_dir=./models/auxiliary-positive
+model_dir=./models/regularization
 export CUDA_VISIBLE_DEVICES=0,1,2,3
 nohup fairseq-train $data_bin \
         --user-dir $user_dir --criterion auxiliarycriterion --task auxiliary_translation_task --arch transformer_vaswani_wmt_en_de_big1 \
@@ -27,7 +27,7 @@ nohup fairseq-train $data_bin \
         --patience=20 \
         --update-freq 8 \
         -s en -t de --save-dir $model_dir \
-        --mask-loss-weight 0.03 > auxiliary-positve.log 2>&1 &
+        --mask-loss-weight 0.03 > regularization.log 2>&1 &
 ```
 
 
