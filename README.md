@@ -30,19 +30,4 @@ nohup fairseq-train $data_bin \
         --mask-loss-weight 0.03 > auxiliary-positve.log 2>&1 &
 ```
 
-### Inference
-```
-fairseq-generate ./wmt14_en_de_bpe32k \
-        --user-dir ./auxiliary-positive \
-        --criterion auxiliarycriterion \
-	      --task auxiliary_translation_task \ 
-        --path ./checkpoint.avg20.pt  \
-        --remove-bpe -s en -t de --beam 5 --lenpen 0.6 > gen.out.txt
-```
 
-### Post-Process for English to German
-```
-grep ^H gen.out.txt | sort -n -k 2 -t '-' | cut -f 3 >H.txt
-grep ^T gen.out.txt | sort -n -k 2 -t '-' | cut -f 2 >T.txt
-./post-process.sh your-path/H.txt your-path/T.txt
-```
