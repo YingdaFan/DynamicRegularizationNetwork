@@ -1,5 +1,9 @@
 # Dynamic Regularization 
 Dynamic Regularization Network for Transformer in Neural Machine Translation 
+Introduced a sparsity regulation term bounded with multi-head attention output.
+The normalized vector in the regularization term rectified and regularized the final loss function.
+Regularization changed dynamically with training, which depends on the dynamic normalized vector.
+Visual analysis of attention weight showed that dynamic regularization sharpened the attention weight distribution.
 
 ### Requirements
 * [PyTorch](http://pytorch.org/) version == 1.9
