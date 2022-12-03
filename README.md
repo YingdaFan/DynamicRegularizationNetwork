@@ -18,10 +18,10 @@ cd ./fairseq
 user_dir=./regularization
 data_bin=./data-bin/wmt14_en_de_bpe32k
 model_dir=./models/regularization
-export CUDA_VISIBLE_DEVICES=0,1,2,3
+export CUDA_VISIBLE_DEVICES=1
 nohup fairseq-train $data_bin \
-        --user-dir $user_dir --criterion auxiliarycriterion --task auxiliary_translation_task --arch transformer_vaswani_wmt_en_de_big1 \
-        --optimizer auxiliaryadam --adam-betas '(0.9, 0.98)' --clip-norm 0.0 --lr-scheduler inverse_sqrt \
+        --user-dir $user_dir --criterion auxiliarycriterion --task auxiliary_translation_task --arch transformer_wmt_en_de1 \
+        --optimizer adam --adam-betas '(0.9, 0.98)' --clip-norm 0.0 --lr-scheduler inverse_sqrt \
         --warmup-init-lr 1e-07 --warmup-updates 4000 --lr 0.0005 --stop-min-lr 1e-09 \
         --weight-decay 0.0 --label-smoothing 0.1 \
         --max-tokens 2048 --no-progress-bar --max-update 150000 \
@@ -29,7 +29,8 @@ nohup fairseq-train $data_bin \
         --ddp-backend no_c10d \
         --dropout 0.3 \
         --patience=20 \
-        --update-freq 8 \
+        --reg-alpha 5 \
+        --fp16 \
         -s en -t de --save-dir $model_dir \
         --mask-loss-weight 0.03 > regularization.log 2>&1 &
 ```
